@@ -1,4 +1,5 @@
 USE codeup_test_db;
+TRUNCATE albums;
 
 -- CREATE TABLE if not exists albums (
 --     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -67,3 +68,4 @@ VALUES('Various artists',	'Grease: The Original Soundtrack from the Motion Pictu
 ('Santana','Supernatural','1999',	20.5, 'Latin rock'),
 ('Guns N Roses',	'Appetite for Destruction', '1987', 21.6,	'Hard rock');
 
+SELECT * FROM albums;
