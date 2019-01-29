@@ -60,11 +60,14 @@ ORDER BY emp_no DESC;
 
 -- Find all employees hired in the 90s and born on Christmas — 362 rows.
 -- Change the query for employees hired in the 90s and born on Christmas such that the first result is the oldest employee who was hired last. It should be Khun Bernini. -> DONE
+-- Find your query for employees born on Christmas and hired in the 90s from order_by_exercises.sql. Update it to find just the first 5 employees. -> DONE
+-- Update the query to find the tenth page of results. -> DONE
 SELECT *
 FROM employees
 WHERE hire_date BETWEEN '1990-01-01' AND '1999-12-31'
 AND birth_date LIKE '%-12-25'
-ORDER BY birth_date ASC, hire_date DESC;
+ORDER BY birth_date ASC, hire_date DESC
+LIMIT 5 OFFSET 45;
 
 -- Find all employees with a 'q' in their last name but not 'qu' — 547 rows.
 SELECT *
