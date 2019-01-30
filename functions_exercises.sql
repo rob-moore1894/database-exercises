@@ -4,6 +4,7 @@ USE employees;
 SELECT *
 FROM employees
 WHERE first_name IN ('Irena', 'Vidya', 'Maya');
+
 -- Find all employees whose last name starts with 'E' — 7,330 rows.
 SELECT *
 FROM employees
@@ -45,8 +46,7 @@ OR first_name = 'Maya')
 AND gender = 'M';
 
 -- Find all employees whose last name starts or ends with 'E' — 30,723 rows. -> DONE
--- Update your queries for employees whose names start and end with 'E'. Use concat() to combine their first and last name together as a single column in your results. -> DONE
-SELECT concat(first_name, ' ',last_name) AS 'Full Name'
+SELECT *
 FROM employees
 WHERE last_name LIKE 'E%'
 OR last_name LIKE '%E';
@@ -54,7 +54,8 @@ OR last_name LIKE '%E';
 -- Duplicate the previous query and update it to find all employees whose last name starts and ends with 'E' — 899 rows.
 -- Update your queries for employees with 'E' in their last name to sort the results by their employee number. Your results should not change! -> DONE
 -- Now reverse the sort order for both queries. -> DONE (last_name with 'e') -> DONE ('Irena', 'Vidya', and 'Maya')
-SELECT *
+-- Update your queries for employees whose names start and end with 'E'. Use concat() to combine their first and last name together as a single column in your results. -> DONE
+SELECT *, concat(first_name, ' ', last_name) AS 'Full Name'
 FROM employees
 WHERE last_name LIKE 'e%e'
 ORDER BY emp_no DESC;
