@@ -130,20 +130,27 @@ show tables;
 -- titles
 
 DESCRIBE dept_manager; -- Primary Keys dept_no and emp_no
--- Write a query that shows each department along with the name of the current manager for that department.
 SELECT * FROM departments;
+DESCRIBE departments; -- Primary Key dept_no
 SELECT * FROM dept_emp;
+DESCRIBE dept_emp; -- Primary Keys dept_no and emp_no
 SELECT * FROM dept_manager;
+DESCRIBE dept_manager; -- Primary Keys dept_no and emp_no
 SELECT * FROM employees;
+DESCRIBE employees; -- Primary Key emp_no
 SELECT * FROM salaries;
+DESCRIBE salaries; -- Primary Keys emp_no and from_date
 SELECT * FROM titles;
+DESCRIBE titles; -- Primary Keys emp_no, title, and from_date
 
+-- Write a query that shows each department along with the name of the current manager for that department.
 SELECT dept_name AS 'Department Name', concat(employees.first_name, " ", employees.last_name) AS 'Department Manager'
 FROM employees
 JOIN dept_manager ON employees.emp_no = dept_manager.emp_no
 JOIN departments ON dept_manager.dept_no = departments.dept_no
 WHERE to_date = '9999-01-01'
-AND gender = 'F';
+AND gender = 'F'
+ORDER BY departments.dept_name;
 
 --OUTPUT FOR Manager for each Department
 -- Department Name    Department Manager
@@ -171,6 +178,7 @@ JOIN employees on employees.emp_no = titles.emp_no
 JOIN dept_emp on employees.emp_no = dept_emp.emp_no
 JOIN departments on dept_emp.dept_no = departments.dept_no
 WHERE titles.to_date = '9999-01-01'
+AND dept_emp.to_date > now()
 AND departments.dept_name = 'Customer Service'
 GROUP BY titles.title;
 
@@ -180,8 +188,8 @@ GROUP BY titles.title;
 -- Engineer	          627
 -- Manager	          1
 -- Senior Engineer	  1790
--- Senior Staff	      12349
--- Staff	            3902
+-- Senior Staff	      11268
+-- Staff	            3574
 -- Technique Leader	  241
 
 -- Find the current salary of all current managers.
@@ -206,14 +214,17 @@ AND dept_manager.to_date = '9999-01-01';
 -- Customer Service	  Yuchang Weedman	      58745
 
 -- Bonus Find the names of all current employees, their department name, and their current manager's name.
-SELECT
-concat(employees.first_name, ' ', employees.last_name) AS 'Employee Name',
-dept_name AS 'Department Name',
-concat(employees.first_name, ' ', employees.last_name) AS 'Manager Name'
+SELECT concat(employees.first_name, ' ', employees.last_name) AS 'Employee Name',
+departments.dept_name AS 'Department Name',
+concat(managers.first_name, ' ', managers.last_name) AS 'Manager''s Name'
 FROM employees
-JOIN dept_emp ON employees.emp_no = dept_emp.emp_no
-JOIN departments ON dept_emp.dept_no = departments.dept_no
-JOIN dept_manager ON dept_manager.emp_no = employees.emp_no
-WHERE dept_emp.to_date = '9999-01-01';
+JOIN dept_emp ON dept_emp.emp_no = employees.emp_no
+JOIN departments ON departments.dept_no = dept_emp.dept_no
+JOIN dept_manager ON dept_manager.dept_no = departments.dept_no
+JOIN employees AS managers
+ON managers.emp_no = dept_manager.emp_no
+WHERE dept_emp.to_date > now()
+AND dept_manager.to_date > now();
+
 
 
